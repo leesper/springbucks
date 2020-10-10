@@ -151,3 +151,9 @@ public class ConnectionLogFilter extends FilterEventAdapter {
 
 如果要实现批量处理，比如批量插入操作，可以使用JdbcTemplate的batchUpdate()方法结合BatchPreparedStatementSetter；也可以使用NamedParameterJdbcTemplate的batchUpdate()方法结合SqlParameterSourceUtils.createBatch()实现。具体请参考代码示例。
 
+# 五. 事务抽象
+
+Spring框架提供一致的事务模型，无论你是使用JDBC/Hibernate/MyBatis，还是使用DataSource/JTA。programmatictransdemo演示了如何使用编程式事务，而declarativetransdemo演示了如何使用声明式事务，其中声明式事务是利用AOP创建动态代理对象来实现的。
+
+
+
