@@ -336,15 +336,3 @@ spring.h2.console.settings.web-allow-others=false
 
 上述配置规定改变了控制台的路径，关闭了追踪输出，取消了远程访问。
 
-### 2. Java语言
-
-1. 注解：结合Thinking in Java和https://mp.weixin.qq.com/s?__biz=MzAxNjM2MTk0Ng==&mid=2247490545&idx=2&sn=72082ff53aeb5c55767c1e8048bcf409&chksm=9bf4ab44ac832252769e5644becdf9f8ba332b66bfa808f1c18fa0a96821d9e04b722a784151&mpshare=1&scene=1&srcid=&sharer_sharetime=1585669396194&sharer_shareid=60f87558e65afe41d0a0ec596a14b867#rd  写一篇文章分析Lombok实现原理
-2. 枚举类
-
-### 3. 其他
-
-1. usertype.core库
-2. joda-money库
-3. h2 database
-4. schema.sql
-
