@@ -1,18 +1,18 @@
 package com.leesper.springbucksjpa.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 
-@Entity(name = "t_coffee")
+@Entity
+@Table(name = "T_COFFEE")
 @Data
 @Builder
+@ToString(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Coffee extends BaseEntity {
+public class Coffee extends BaseEntity implements Serializable {
     private String name;
     private Long price;
 }

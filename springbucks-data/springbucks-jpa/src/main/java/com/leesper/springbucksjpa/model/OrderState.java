@@ -1,5 +1,5 @@
 package com.leesper.springbucksjpa.model;
 
-enum OrderState {
+public enum OrderState {
     INIT, PAID, BREWING, BREWED, TAKEN, CANCELLED
 }

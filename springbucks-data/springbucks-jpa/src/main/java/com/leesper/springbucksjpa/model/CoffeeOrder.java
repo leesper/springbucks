@@ -1,26 +1,27 @@
 package com.leesper.springbucksjpa.model;
 
-import com.sun.xml.internal.rngom.parse.host.Base;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
-@Entity(name = "t_order")
+@Entity
+@Table(name = "T_ORDER")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class CoffeeOrder extends BaseEntity {
+public class CoffeeOrder extends BaseEntity implements Serializable {
     private String customer;
 
     @ManyToMany
-    @JoinTable(name = "t_order_coffee")
+    @JoinTable(name = "T_ORDER_COFFEE")
     @OrderBy("id")
-    private List<Coffee> coffees;
+    private List<Coffee> items;
 
     @Enumerated
     @Column(nullable = false)
-    private OrderState orderState;
+    private OrderState state;
 }
