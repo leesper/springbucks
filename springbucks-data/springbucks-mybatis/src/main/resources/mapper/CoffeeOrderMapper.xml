@@ -3,9 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.leesper.springbucksmybatis.mapper.CoffeeOrderMapper">
-    <insert id="createOrder">
+    <resultMap id="coffeeOrderResultMap" type="com.leesper.springbucksmybatis.model.CoffeeOrder">
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO T_ORDER(customer, state, create_time, update_time) VALUES(#{customer}, #{state}, NOW(), NOW())
+    </insert>
+    <insert id="addOrderCoffee">
+        <foreach item="idMap" index="index" collection="idBag">
+            INSERT INTO T_ORDER_COFFEE(coffee_order_id, items_id)
+            VALUES(#{idMap.order_id}, #{idMap.coffee_id})
+        </foreach>
     </insert>
 
-    <update id="updateState">
+    <update id="update">
+        UPDATE T_ORDER SET `state` = #{state}, `update_time` = NOW() WHERE `id` = #{id}
     </update>
 </mapper>

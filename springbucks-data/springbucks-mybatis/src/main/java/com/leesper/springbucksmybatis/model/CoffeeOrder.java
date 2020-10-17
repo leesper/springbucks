@@ -9,7 +9,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoffeeOrder {
+public class CoffeeOrder extends BaseEntity {
     private String customer;
     private List<Coffee> items;
     private OrderState state;
