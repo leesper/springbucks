@@ -13,9 +13,11 @@ public class CoffeeOrderService {
     private CoffeeOrderMapper coffeeOrderMapper;
 
     public CoffeeOrder createOrder(String customer, Coffee... coffee) {
-        return coffeeOrderMapper.createOrder(customer, coffee);
+        return null;
+//        return coffeeOrderMapper.createOrder(customer, coffee);
     }
     public boolean updateState(CoffeeOrder order, OrderState state) {
-        return coffeeOrderMapper.updateState(order, state);
+//        return coffeeOrderMapper.updateState(order, state);
+        return false;
     }
 }

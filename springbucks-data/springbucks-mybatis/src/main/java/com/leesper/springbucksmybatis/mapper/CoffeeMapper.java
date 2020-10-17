@@ -8,6 +8,5 @@ import java.util.Optional;
 
 public interface CoffeeMapper {
     public List<Coffee> findAll();
-
     public Optional<Coffee> findOneCoffee(@Param("name") String name);
 }

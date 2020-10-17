@@ -42,11 +42,12 @@ public class SpringbucksMybatisApplication implements ApplicationRunner {
 
 		Optional<Coffee> latte = coffeeService.findOneCoffee("latte");
 		if (latte.isPresent()) {
-			CoffeeOrder order = coffeeOrderService.createOrder("Li Lei", latte.get());
-			log.info("New order {}", order);
+			log.info("Present: {}", latte.get());
+//			CoffeeOrder order = coffeeOrderService.createOrder("Li Lei", latte.get());
+//			log.info("New order {}", order);
 
-			log.info("Update to PAID: {}", coffeeOrderService.updateState(order, OrderState.PAID));
-			log.info("Update to INIT: {}", coffeeOrderService.updateState(order, OrderState.INIT));
+//			log.info("Update to PAID: {}", coffeeOrderService.updateState(order, OrderState.PAID));
+//			log.info("Update to INIT: {}", coffeeOrderService.updateState(order, OrderState.INIT));
 		}
 	}
 }
