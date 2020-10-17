@@ -14,7 +14,7 @@
 
 `CoffeeService`通过`CoffeeRepository`实现对咖啡数据的操作；`CoffeeOrderService`通过`CoffeeOrderRepository`实现对订单数据的操作。`CoffeeRepository`和`CoffeeOrderRepository`是两个继承了`JpaRepository`泛型接口的接口，其方法由spring-data-jpa自动生成。
 
-`Repository`接口操作一系列的实体类，让实体类和数据库表之间建立对应关系。实体类`Coffee`包含“咖啡名称”和“单价”属性；`CoffeeOrder`包含“咖啡列表”和“订单状态”属性，二者都继承自`BaseEntity`类，后者包含id，创建时间和修改时间三个属性。`OrderState`是枚举类型，表示订单的5种状态：
+`Repository`接口操作一系列的实体类，让实体类和数据库表之间建立对应关系。实体类`Coffee`包含“咖啡名称”和“单价”属性；`CoffeeOrder`包含“顾客姓名”、“咖啡列表”和“订单状态”属性，二者都继承自`BaseEntity`类，后者包含id，创建时间和修改时间三个属性。`OrderState`是枚举类型，表示订单的5种状态：
 
 * INIT：初始状态
 * PAID：已支付
