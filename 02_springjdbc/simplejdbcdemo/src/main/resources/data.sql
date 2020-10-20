@@ -1,1 +1,0 @@
-INSERT INTO FOO (BAR) VALUES ('aaa');
