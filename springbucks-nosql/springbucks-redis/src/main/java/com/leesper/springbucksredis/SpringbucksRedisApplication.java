@@ -47,7 +47,8 @@ public class SpringbucksRedisApplication implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 //		jedisDemo();
 //		cacheDemo();
-		redisTemplateDemo();
+//		redisTemplateDemo();
+		redisRepositoryDemo();
 	}
 
 	@Bean
@@ -100,6 +101,17 @@ public class SpringbucksRedisApplication implements ApplicationRunner {
 
 		for (int i = 0; i < 5; i++) {
 			mocha = coffeeService.findOneCoffeeWithRedisTemplate("mocha");
+		}
+
+		log.info("Value from Redis: {}", mocha);
+	}
+
+	private void redisRepositoryDemo() {
+		Optional<Coffee> mocha = coffeeService.findSimpleCoffeeFromCache("mocha");
+		log.info("Coffee {}", mocha);
+
+		for(int i = 0; i < 5; i++) {
+			mocha = coffeeService.findSimpleCoffeeFromCache("mocha");
 		}
 
 		log.info("Value from Redis: {}", mocha);

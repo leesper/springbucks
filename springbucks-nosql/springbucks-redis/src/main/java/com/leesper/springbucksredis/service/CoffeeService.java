@@ -1,6 +1,8 @@
 package com.leesper.springbucksredis.service;
 
 import com.leesper.springbucksredis.model.Coffee;
+import com.leesper.springbucksredis.model.CoffeeCache;
+import com.leesper.springbucksredis.repository.CoffeeCacheRepository;
 import com.leesper.springbucksredis.repository.CoffeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class CoffeeService {
     private CoffeeRepository coffeeRepository;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private CoffeeCacheRepository coffeeCacheRepository;
+
     private final String CACHE = "springbucks-coffee";
 
     public List<Coffee> findAllCoffee() {
@@ -65,6 +70,31 @@ public class CoffeeService {
         }
 
         return result;
+    }
+
+    public Optional<Coffee> findSimpleCoffeeFromCache(String name) {
+        Optional<CoffeeCache> cacheResult = coffeeCacheRepository.findOneByName(name);
+        if (cacheResult.isPresent()) {
+            log.info("Coffee {} found in cache.", cacheResult);
+            CoffeeCache cache = cacheResult.get();
+            Coffee coffee = Coffee.builder()
+                    .name(cache.getName())
+                    .price(cache.getPrice())
+                    .build();
+            return Optional.of(coffee);
+        }
+
+        Optional<Coffee> coffeeResult = findOneCoffee(name);
+        if (coffeeResult.isPresent()) {
+            Coffee coffee = coffeeResult.get();
+            CoffeeCache cache = CoffeeCache.builder()
+                    .name(coffee.getName())
+                    .price(coffee.getPrice())
+                    .build();
+            coffeeCacheRepository.save(cache);
+        }
+
+        return coffeeResult;
     }
 
 }

@@ -335,4 +335,5 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
 1. 上述需求在redisRepositoryDemo()中实现
 2. CoffeeService中增加CoffeeCacheRepository类型成员变量，编写findSimpleCoffeeFromCache()方法
 3. findSimpleCoffeeFromCache()方法先从cacheRepository中尝试获取CoffeeCache对象，如果存在则从CoffeeCache构造Coffee数据并返回；否则就从数据库中查找咖啡数据，若找到，则构造CoffeeCache对象并保存到cacheRepository，然后返回找到的对象
+4. CoffeeCacheRepository接口包含findOneByName()方法；CoffeeCache类缓存咖啡的名称和价格信息
 
