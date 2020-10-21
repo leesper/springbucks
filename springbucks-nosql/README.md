@@ -173,17 +173,17 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
 
 3. 如何使用[@Bean](https://www.baeldung.com/spring-bean)、[@Value](https://www.baeldung.com/spring-value-annotation)和[@ConfigurationProperties](https://www.baeldung.com/configuration-properties-in-spring-boot)注解
 
-4. Repository中使用"Find By Example"进行查找（Example和ExampleMatcher）
+4. Repository中使用"Find By Example"进行[查找](https://www.baeldung.com/spring-data-query-by-example)（Example和ExampleMatcher）
 
 5. Java的try块实现资源自动释放
 
-6. Redis哈希表相关操作
+6. Redis哈希表相关[操作](https://redis.io/commands/hset)
 
 ### 2.2.2 任务2：Spring缓存抽象
 
 需求：
 
-1. 查找所有的咖啡，打印得到的结果数目，此时获取的结果是从数据库中取到的，并自动缓存一份，findAllCoffee()函数添加相应注解，CoffeeService添加相应注解
+1. 查找所有的咖啡，打印得到的结果数目，此时获取的结果是从数据库中取到的，并自动缓存一份
 
    期望输出：`Count: 5`
 
@@ -204,7 +204,7 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
    Reading from cache.
    ```
 
-3. 重载咖啡数据，此时缓存清空，reloadCoffee()函数添加相应注解
+3. 重载咖啡数据，此时缓存清空
 
 4. 再次查找所有咖啡，并遍历打印咖啡名字，此时获取的结果是从数据库中取到的，并自动缓存一份
 
@@ -226,7 +226,7 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
 
 涉及到的知识点：
 
-1. Spring的缓存抽象机制
+1. Spring的[缓存抽象](https://www.baeldung.com/spring-cache-tutorial)机制
 2. 基于注解的缓存
    * @EnableCaching(proxyTargetClass=true)
    * @Cacheable
