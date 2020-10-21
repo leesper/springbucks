@@ -237,7 +237,14 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
 
 ### 2.2.3 任务3：通过Spring Boot配置Redis缓存
 
-1. 保持上述代码不变，添加如下配置：
+1. 保持上述代码不变，添加如下依赖和配置：
+
+   ```xml
+   <dependency>
+   			<groupId>org.springframework.boot</groupId>
+   			<artifactId>spring-boot-starter-data-redis</artifactId>
+   </dependency>
+   ```
 
    ```properties
    spring.cache.type=redis
@@ -281,12 +288,19 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
 实现：
 
 1. 上述需求在redisTemplateDemo()中实现
+
 2. CoffeeService编写findOneCoffeeWithRedisTemplate()方法，先通过RedisTemplate从名为springbucks-coffee的缓存中获取咖啡数据，若找到了则直接返回Optional的数据，若找不到则从数据库中查找，然后先写入到缓存并设置1分钟过期，然后再返回结果
+
+3. 添加相关配置
+
+   ```properties
+   spring.redis.lettuce.pool.maxActive=5
+   spring.redis.lettuce.pool.maxIdle=5
+   ```
 
 涉及到的知识点：
 
 1. RedisTemplate的使用，如何通过@Bean初始化RedisTemplate
-2. Lettuce的使用和配置
 
 ### 2.2.5 任务5：使用RedisRepository
 

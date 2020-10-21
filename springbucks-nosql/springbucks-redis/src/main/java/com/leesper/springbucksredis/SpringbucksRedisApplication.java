@@ -13,17 +13,22 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 @EnableJpaRepositories
 @Slf4j
 @EnableTransactionManagement
+@EnableCaching(proxyTargetClass=true)
 public class SpringbucksRedisApplication implements ApplicationRunner {
 	@Autowired
 	private JedisPoolConfig jedisPoolConfig;
@@ -41,7 +46,8 @@ public class SpringbucksRedisApplication implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 //		jedisDemo();
-		cacheDemo();
+//		cacheDemo();
+		redisTemplateDemo();
 	}
 
 	@Bean
@@ -53,6 +59,13 @@ public class SpringbucksRedisApplication implements ApplicationRunner {
 	@Bean(destroyMethod = "close")
 	public JedisPool buildJedisPool(@Value("${redis.host}") String host) {
 		return new JedisPool(buildPoolConfig(), host);
+	}
+
+	@Bean
+	public RedisTemplate<Long, Coffee> buildRedisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<Long, Coffee> template = new RedisTemplate<>();
+		template.setConnectionFactory(connectionFactory);
+		return template;
 	}
 
 	private void jedisDemo() {
@@ -79,5 +92,16 @@ public class SpringbucksRedisApplication implements ApplicationRunner {
 		coffeeService
 				.findAllCoffeeCacheable()
 				.forEach(coffee -> log.info("Coffee {}", coffee.getName()));
+	}
+
+	private void redisTemplateDemo() {
+		Optional<Coffee> mocha = coffeeService.findOneCoffeeWithRedisTemplate("mocha");
+		log.info("Coffee {}", mocha);
+
+		for (int i = 0; i < 5; i++) {
+			mocha = coffeeService.findOneCoffeeWithRedisTemplate("mocha");
+		}
+
+		log.info("Value from Redis: {}", mocha);
 	}
 }
