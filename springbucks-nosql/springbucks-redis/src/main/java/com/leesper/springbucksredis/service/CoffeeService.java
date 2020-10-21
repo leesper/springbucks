@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
+
 
 @Service
 @Slf4j
@@ -18,12 +20,14 @@ public class CoffeeService {
     @Autowired
     private CoffeeRepository coffeeRepository;
 
-    public List<Coffee> findAll() {
+    public List<Coffee> findAllCoffee() {
         return coffeeRepository.findAll();
     }
 
     public Optional<Coffee> findOneCoffee(String name) {
-        ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase();
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withMatcher(name, exact().ignoreCase());
         return coffeeRepository.findOne(Example.of(Coffee.builder().name(name).build(), matcher));
     }
 

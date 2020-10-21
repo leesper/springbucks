@@ -160,7 +160,7 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
 
 涉及到的知识点：
 
-1. redis相关配置及其含义
+1. redis相关配置及其含义	
 
    ```properties
    redis.host=localhost
@@ -171,7 +171,7 @@ Redis是开源的高性能KV存储，支持各种数据结构。Spring对Redis�
 
 2. Jedis的使用，如何通过JedisPoolConfig和JedisPool初始化Jedis实例
 
-3. 如何使用@Bean和@ConfigurationProperties注解
+3. 如何使用[@Bean](https://www.baeldung.com/spring-bean)、[@Value](https://www.baeldung.com/spring-value-annotation)和[@ConfigurationProperties](https://www.baeldung.com/configuration-properties-in-spring-boot)注解
 
 4. Repository中使用"Find By Example"进行查找（Example和ExampleMatcher）
 
