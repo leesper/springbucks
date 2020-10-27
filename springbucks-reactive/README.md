@@ -113,7 +113,39 @@ combineTwoSteamasDemo: [1 - Linux Torvalds, 2 - Turing, 3 - Bill Gates]
 
 # 3. 响应式访问MongoDB
 
+## 3.1 任务1：插入数据并修改咖啡价格
 
+1. 修改properties文件
+
+```properties
+spring.data.mongodb.uri=mongodb://springbucks:springbucks@localhost:27017/springbucks
+```
+
+2. 编写代码主逻辑：插入数据，然后将price大于3000的咖啡降价500
+
+```java
+startFromInsertion(() -> {
+  log.info("Runnable");
+  decreaseHighPrice();
+});
+
+log.info("after starting");
+```
+
+3. 编写initCoffee()函数
+   * 构造espresso和latte两种咖啡，返回咖啡列表
+4. 编写startFromInsertion()函数
+   * 将咖啡列表插入到MongoDB数据库中
+   * 新开一个elastic线程
+   * 在处理每个元素时打印元素
+   * 完成时运行Runnable参数代表的代码逻辑
+   * 最后并发控制器计数减一，打印日志
+   * 计数
+   * 订阅，打印插入了多少条记录
+5. 编写decreaseHighPrice()函数
+   * 筛选价格大于等于3000的咖啡，降价500
+   * 并发控制器减一，打印日志
+   * 订阅，打印结果
 
 
 
