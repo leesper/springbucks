@@ -55,7 +55,67 @@ combineTwoSteamasDemo: [1 - Linux Torvalds, 2 - Turing, 3 - Bill Gates]
 4. 以single方式创建线程
 5. 对每一个数字减去1
 6. 调用subscribe()添加三个Lambda函数，一个打印每次处理过的值，格式为“Subscribe 当前线程名称: 数字”；一个打印异常值；一个在成功结束时打印“Subscriber COMPLETE”
-7. 睡眠2秒
+7. 睡眠2秒等待上述线程处理完毕（关于线程同步，还有更好的方法，见下文）
+
+# 2. 响应式访问Redis
+
+阅读资料[An Introduction to Spring Data Redis Reactive](https://www.baeldung.com/spring-data-redis-reactive)，了解R额activeStringRedisTemplate的基本使用。
+
+## 2.1 任务1：创建咖啡菜单到Redis
+
+1. 创建相关properties文件和sql文件
+
+   * properties文件
+
+     ```properties
+     spring.redis.host=localhost
+     ```
+
+   * schema.sql
+
+     ```sql
+     drop table t_coffee if exists;
+     create table t_coffee (
+         id bigint auto_increment,
+         create_time timestamp,
+         update_time timestamp,
+         name varchar(255),
+         price bigint,
+         primary key (id)
+     );
+     ```
+
+   * data.sql
+
+     ```sql
+     insert into t_coffee (name, price, create_time, update_time) values ('espresso', 2000, now(), now());
+     insert into t_coffee (name, price, create_time, update_time) values ('latte', 2500, now(), now());
+     insert into t_coffee (name, price, create_time, update_time) values ('capuccino', 2500, now(), now());
+     insert into t_coffee (name, price, create_time, update_time) values ('mocha', 3000, now(), now());
+     insert into t_coffee (name, price, create_time, update_time) values ('macchiato', 3000, now(), now());
+     ```
+
+2. 编写业务逻辑
+
+   * 编写方法通过ReactiveRedisConnectionFactory对象创建ReactvieRedisTemplate的bean
+   * 通过JdbcTemplate查询数据库中所有数据，然后构造Coffee对象放到列表中
+   * 使用列表构造Flux序列，然后放到single线程中执行，使用CountDownLatch建立与主线程同步，完成后打印list ok
+   * 通过Hash操作建立咖啡名字和价格的信息，存储到COFFEE_MENU的KEY中，将返回值收集到Flux中，完成后打印set ok
+   * 设置KEY过期时间为1分钟，将返回值合并到上面的返回值中，完成后打印expire ok
+   * 如果出错，打印异常值，返回单一值false
+   * 订阅序列，打印每个返回值，打印异常信息，同步计数减1
+   * 打印Waiting，主线程等待
+
+3. 编写Coffee类
+
+   * Coffee类包含ID，名字和价格，分别为Long、String和Long类型
+   * 通过lombok注解添加Data+Builder+无参构造+全参构造
+
+# 3. 响应式访问MongoDB
+
+
+
+
 
 
 
